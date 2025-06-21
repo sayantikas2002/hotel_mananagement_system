@@ -64,7 +64,7 @@
         .account {
             position: relative;
             cursor: pointer;
-            margin-left: 1.5rem; /* Added spacing from hamburger */
+            margin-left: 1.5rem;
         }
 
         .account-icon {
@@ -137,7 +137,6 @@
             text-align: center;
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
             .left-group {
                 flex: 1;
@@ -178,11 +177,11 @@
 
             <ul class="nav-links" id="nav-links">
                 <li><a href="#">Home</a></li>
-                <li><a href="#">Reservation</a></li>
-                <li><a href="#">Billing Page</a></li>
-                <li><a href="#">History</a></li>
-                <li><a href="#">Bookings</a></li>
-                <li><a href="#">Contact Support</a></li>
+                <li><a href="reservation.html">Reservation</a></li>
+                <li><a href="payment.html">Billing Page</a></li>
+                <li><a href="room-status.html">History</a></li>
+                <li><a href="booking_history.html">Bookings</a></li>
+                <li><a href="customer_support.html">Contact Support</a></li>
             </ul>
         </div>
 
@@ -195,19 +194,20 @@
         <div class="account" id="account">
             <div class="account-icon">👤</div>
             <div class="dropdown" id="dropdown">
-                <a href="login.html">Login</a>
-                <a href="register.html">Register</a>
+                <a href="login_page.html">Login</a>
+                <a href="reg_page.html">Register</a>
             </div>
         </div>
     </nav>
 
-    <div class="welcome-message">
+    <div class="welcome-message" id="welcomeMessage">
         Welcome Guest!
     </div>
 
     <script>
         const hamburger = document.getElementById('hamburger');
         const navLinks = document.getElementById('nav-links');
+        const welcomeDiv = document.getElementById('welcomeMessage');
 
         hamburger.addEventListener('click', () => {
             navLinks.classList.toggle('open');
@@ -226,6 +226,12 @@
                 dropdown.classList.remove('open');
             }
         });
+
+        // Dynamic username display from localStorage
+        const storedUsername = localStorage.getItem("username");
+        if (storedUsername) {
+            welcomeDiv.textContent = `Welcome ${storedUsername}!`;
+        }
     </script>
 
 </body>
