@@ -105,14 +105,14 @@
       }
     }
 
-    // Initial call and event listener for resize
     window.addEventListener('DOMContentLoaded', adjustLayout);
     window.addEventListener('resize', adjustLayout);
 
     // Form validation and feedback
     document.getElementById('loginForm').addEventListener('submit', function(event) {
       event.preventDefault();
-      const userId = document.getElementById('userId').value;
+
+      const userId = document.getElementById('userId').value.trim();
       const password = document.getElementById('password').value;
       const errorDiv = document.getElementById('errorMessage');
       const successDiv = document.getElementById('successMessage');
@@ -125,12 +125,16 @@
       } else {
         errorDiv.style.display = 'none';
         successDiv.textContent = 'Login successful! Redirecting to dashboard...';
+
+        // ✅ Store username in localStorage
+        localStorage.setItem("username", userId);
+
+        // ✅ Redirect to customer support page or dashboard
         setTimeout(() => {
-          window.location.href = 'dashboard.html'; // Your redirection page
+          window.location.href = 'customer-support.html'; // Update this if you're using another page
         }, 1500);
       }
     });
   </script>
 </body>
 </html>
-
