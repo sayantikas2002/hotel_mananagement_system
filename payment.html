@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pay Bill</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f2f5;
+      padding: 30px;
+    }
+    .payment-container {
+      background: #fff;
+      max-width: 500px;
+      margin: auto;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      box-sizing: border-box;
+    }
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 12px;
+      background-color: #007bff;
+      border: none;
+      color: white;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .confirmation {
+      margin-top: 20px;
+      color: green;
+      font-weight: bold;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="payment-container">
+    <h2>Bill Payment</h2>
+    <form id="paymentForm">
+      <label for="name">Name</label>
+      <input type="text" id="name" required>
+
+      <label for="amount">Amount (INR)</label>
+      <input type="number" id="amount" value="4800" required>
+
+      <button type="submit">Pay with Razorpay</button>
+    </form>
+
+    <div class="confirmation" id="confirmationMessage"></div>
+  </div>
+
+  <!-- Razorpay JS Library -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <script>
+    document.getElementById("paymentForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value;
+      const amount = document.getElementById("amount").value * 100; // convert to paise
+
+      const options = {
+        key: "rzp_test_1DP5mmOlF5G5ag", // 🔁 Replace with your live/test key_id
+        amount: amount,
+        currency: "INR",
+        name: "Hotel Booking",
+        description: "Room Charges Payment",
+        handler: function (response) {
+          document.getElementById("confirmationMessage").innerText =
+            "Payment Successful! Payment ID: " + response.razorpay_payment_id;
+        },
+        prefill: {
+          name: name
+        },
+        theme: {
+          color: "#007bff"
+        }
+      };
+
+      const rzp = new Razorpay(options);
+      rzp.open();
+    });
+  </script>
+
+</body>
+</html>
