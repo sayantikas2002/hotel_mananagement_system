@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bill Payment</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f1f1f1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .payment-box {
+      background-color: #fff;
+      padding: 30px 40px;
+      border-radius: 10px;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 450px;
+      box-sizing: border-box;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #333;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+
+    button {
+      margin-top: 25px;
+      width: 100%;
+      background-color: #007bff;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="payment-box">
+    <h2>Bill Payment</h2>
+    <form id="paymentForm">
+      <label for="name">Name</label>
+      <input type="text" id="name" required>
+
+      <label for="amount">Amount (INR)</label>
+      <input type="number" id="amount" readonly>
+
+      <button type="submit">Pay with Razorpay</button>
+    </form>
+  </div>
+
+  <script>
+    // Load amount from localStorage
+    const amountField = document.getElementById("amount");
+    const storedAmount = localStorage.getItem("amountDue");
+
+    if (storedAmount) {
+      amountField.value = storedAmount;
+    } else {
+      amountField.value = 0; // fallback
+    }
+
+    // Razorpay or dummy payment logic
+    document.getElementById("paymentForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value;
+      const amount = document.getElementById("amount").value;
+
+      if (!name) {
+        alert("Please enter your name");
+        return;
+      }
+
+      alert(`Processing payment of ₹${amount} for ${name}...`);
+      // Redirect or process payment using Razorpay API here
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Room Status (Admin)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      padding: 20px;
+      margin: 0;
+    }
+
+    .container {
+      background: white;
+      max-width: 700px;
+      margin: auto;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      background-color: #007bff;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    table {
+      width: 100%;
+      margin-top: 25px;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 12px;
+      border: 1px solid #ddd;
+      text-align: center;
+    }
+
+    th {
+      background-color: #007bff;
+      color: white;
+    }
+
+    .vacant {
+      background-color: #d4edda;
+      color: #155724;
+    }
+
+    .booked {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+
+    .error {
+      color: red;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Room Status Tracker (Admin)</h2>
+    
+    <label for="customerId">Enter Customer ID (1–3 digits)</label>
+    <input type="number" id="customerId" placeholder="E.g. 101" min="1" max="999" required>
+
+    <div class="error" id="errorMsg"></div>
+
+    <button onclick="checkRoomStatus()">Submit</button>
+
+    <table id="roomTable" style="display:none;">
+      <thead>
+        <tr>
+          <th>Room Number</th>
+          <th>Availability</th>
+          <th>Floor</th>
+          <th>Price (INR)</th>
+        </tr>
+      </thead>
+      <tbody id="roomTableBody"></tbody>
+    </table>
+  </div>
+
+  <script>
+    const roomData = [
+      { roomNo: 101, status: "vacant", floor: "1st", price: 2000 },
+      { roomNo: 102, status: "booked", floor: "1st", price: 2200 },
+      { roomNo: 201, status: "vacant", floor: "2nd", price: 2500 },
+      { roomNo: 202, status: "booked", floor: "2nd", price: 2700 },
+      { roomNo: 301, status: "vacant", floor: "3rd", price: 3000 },
+    ];
+
+    function checkRoomStatus() {
+      const customerId = document.getElementById("customerId").value;
+      const errorDiv = document.getElementById("errorMsg");
+      const table = document.getElementById("roomTable");
+      const tbody = document.getElementById("roomTableBody");
+
+      errorDiv.innerText = "";
+      tbody.innerHTML = "";
+
+      if (!customerId || customerId < 1 || customerId > 999) {
+        errorDiv.innerText = "Please enter a valid Customer ID (1–3 digits).";
+        table.style.display = "none";
+        return;
+      }
+
+      // Simulate showing data for the entered customer
+      roomData.forEach(room => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${room.roomNo}</td>
+          <td class="${room.status}">${room.status.charAt(0).toUpperCase() + room.status.slice(1)}</td>
+          <td>${room.floor}</td>
+          <td>₹${room.price}</td>
+        `;
+        tbody.appendChild(row);
+      });
+
+      table.style.display = "table";
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Booking History</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f4f4f4;
+    }
+
+    .header {
+      background-color: #007bff;
+      color: white;
+      padding: 15px 25px;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .logout-btn {
+      background-color: #dc3545;
+      color: white;
+      padding: 6px 12px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .container {
+      background: white;
+      padding: 30px;
+      margin-top: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      padding: 12px;
+      border: 1px solid #ddd;
+      text-align: center;
+    }
+
+    th {
+      background-color: #007bff;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div><strong>Booking History</strong></div>
+    <div>
+      Welcome, <span id="username">Guest</span>
+      <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+  </div>
+
+  <div class="container">
+    <h2>Your Booking History</h2>
+    <table id="bookingTable">
+      <thead>
+        <tr>
+          <th>Reservation ID</th>
+          <th>Check-in Date</th>
+          <th>Check-out Date</th>
+          <th>Room No.</th>
+          <th>Bill Amount (INR)</th>
+          <th>Booking Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Rows will be populated by JavaScript -->
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    // Display username
+    const username = localStorage.getItem("username");
+    if (!username) {
+      window.location.href = "login_page.html";
+    } else {
+      document.getElementById("username").innerText = username;
+    }
+
+    // Dummy booking data (You can replace this with data from server/localStorage)
+    const bookings = [
+      {
+        id: 'RES12345',
+        checkin: '2024-12-01',
+        checkout: '2024-12-05',
+        room: '101',
+        amount: '4800',
+        bookingDate: '2024-11-20'
+      },
+      {
+        id: 'RES12346',
+        checkin: '2025-01-10',
+        checkout: '2025-01-13',
+        room: '305',
+        amount: '3200',
+        bookingDate: '2025-01-01'
+      }
+    ];
+
+    // Populate table
+    const tableBody = document.querySelector("#bookingTable tbody");
+
+    bookings.forEach(booking => {
+      const row = document.createElement("tr");
+
+      row.innerHTML = `
+        <td>${booking.id}</td>
+        <td>${booking.checkin}</td>
+        <td>${booking.checkout}</td>
+        <td>${booking.room}</td>
+        <td>₹${booking.amount}</td>
+        <td>${booking.bookingDate}</td>
+      `;
+
+      tableBody.appendChild(row);
+    });
+
+    // Logout function
+    function logout() {
+      localStorage.removeItem("username");
+      window.location.href = "login_page.html";
+    }
+  </script>
+
+</body>
+</html>

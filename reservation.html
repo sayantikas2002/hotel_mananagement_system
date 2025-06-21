@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Reservation Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+            background-color: #f4f4f4;
+        }
+        .reservation-form {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 500px;
+            margin: auto;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 4px;
+        }
+        button {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .confirmation {
+            margin-top: 20px;
+            color: green;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="reservation-form">
+        <h2>Reservation Form</h2>
+        <form id="reservationForm">
+            <label for="checkin">Check-in Date:</label>
+            <input type="date" id="checkin" required>
+
+            <label for="checkout">Check-out Date:</label>
+            <input type="date" id="checkout" required>
+
+            <label for="room">Room Preference:</label>
+            <select id="room" required>
+                <option value="">--Select--</option>
+                <option value="Single">Single</option>
+                <option value="Double">Double</option>
+                <option value="Suite">Suite</option>
+            </select>
+
+            <label for="name">Name:</label>
+            <input type="text" id="name" required>
+
+            <label for="contact">Contact Number:</label>
+            <input type="number" id="contact" required>
+
+            <button type="submit">Submit Reservation</button>
+        </form>
+
+        <div class="confirmation" id="confirmationMessage"></div>
+    </div>
+
+    <script>
+        document.getElementById('reservationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const bookingId = 'BK' + Math.floor(100000 + Math.random() * 900000);
+            document.getElementById('confirmationMessage').innerText = 
+                "Reservation Successful! Your Booking ID is: " + bookingId;
+        });
+    </script>
+</body>
+</html>

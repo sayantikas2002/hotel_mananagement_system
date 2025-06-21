@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Customer Feedback</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      padding: 30px;
+    }
+
+    .form-container {
+      max-width: 500px;
+      background: #fff;
+      padding: 30px;
+      margin: auto;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background-color: #007bff;
+      color: white;
+      padding: 12px;
+      border: none;
+      width: 100%;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .success {
+      color: green;
+      text-align: center;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-container">
+    <h2>Feedback / Complaint Form</h2>
+    <form id="feedbackForm">
+      <label for="complaintType">Complaint Type</label>
+      <select id="complaintType" required>
+        <option value="">-- Select --</option>
+        <option value="Room Cleanliness">Room Cleanliness</option>
+        <option value="Service Delay">Service Delay</option>
+        <option value="Billing Issue">Billing Issue</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <label for="roomNo">Room Number</label>
+      <input type="text" id="roomNo" required>
+
+      <label for="contact">Contact Number</label>
+      <input type="tel" id="contact" pattern="[0-9]{10}" required>
+
+      <label for="customerId">Customer ID</label>
+      <input type="number" id="customerId" required>
+
+      <button type="submit">Submit</button>
+    </form>
+
+    <div class="success" id="successMsg"></div>
+  </div>
+
+  <script>
+    document.getElementById("feedbackForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      // You can send this data to the backend or store it
+      const successMsg = document.getElementById("successMsg");
+      successMsg.textContent = "Your feedback/complaint has been submitted successfully!";
+      this.reset();
+    });
+  </script>
+
+</body>
+</html>
